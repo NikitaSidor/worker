@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('manager_id')->nullable(); // Внешний ключ на сотрудника (руководитель)
 
             $table->foreign('parent_department_id')->references('id')->on('departments')->onDelete('set null');
-            $table->foreign('manager_id')->references('id')->on('employees')->onDelete('set null');
             $table->timestamps();
         });
     }
