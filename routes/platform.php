@@ -17,6 +17,9 @@ use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\Employees\JobTitle;
+use App\Orchid\Screens\Employees\EmployeesController;
+
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -34,6 +37,13 @@ use Tabuna\Breadcrumbs\Trail;
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');
+
+
+
+Route::screen('employees/job', JobTitle::class)->name('job.title');
+Route::screen('employees', EmployeesController::class)->name('job.employees');
+
+
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)
