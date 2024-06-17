@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('job_title_id'); // Правильное имя столбца для внешнего ключа должности
             $table->unsignedBigInteger('department_id'); // Правильное имя столбца для внешнего ключа департамента
             $table->decimal('salary', 10, 2);
+            $table->enum('employment_under', ['1', '2'])->nullable();
             $table->string('currency', 255)->default('RUB');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

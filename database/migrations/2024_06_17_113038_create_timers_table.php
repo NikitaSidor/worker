@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->decimal('hours_worked', 8, 2); // Количество отработанных часов
-            $table->string('added_by');
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->timestamps();
