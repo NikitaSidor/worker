@@ -2,6 +2,10 @@
 
 namespace App\Orchid\Layouts\Employees;
 
+use App\Models\Employees;
+use App\Models\JobTitle;
+use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -48,6 +52,24 @@ class EmployeesListLayout extends Table
             TD::make('employment_under', 'Employment Status')->render(function ($employee) {
                 return $employee->employment_under_text; // Use the accessor here
             }),
+
+            TD::make('')->width(20)->render(function(Employees $employees) {
+                return ModalToggle::make('')
+                    ->icon('pencil')  // Sets the icon of the toggle button to a pencil (edit icon)
+                    ->modal('editEmployees')  // Sets the modal identifier as 'editJobTitle'
+                    ->method('update')  // Specifies that the method to be called is 'update'
+                    ->modalTitle('Редактировать ' . $employees->name)  // Sets the modal title to 'Редактировать профессию' (Edit job title)
+                    ->asyncParameters([
+                        'employees' => $employees->id  // Passes async parameters, including the job title ID
+                    ]);
+            }),
+            TD::make('')->width(20)->render(function(Employees $employees) {
+                return Button::make('')
+                    ->icon('trash')  // Sets the icon of the button to a trash icon (delete)
+                    ->confirm('Are you sure you want to delete this employees?')  // Confirmation message for delete action
+                    ->method('employees')  // Specifies that the button triggers a 'delete' action
+                    ->parameters(['id' => $employees->id]);  // Passes parameters, including the job title ID
+            })
         ];
     }
 }

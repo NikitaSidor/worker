@@ -19,6 +19,9 @@ class JobTitleListLayout extends Table
      * @var string
      */
     protected $target = 'job_titles';
+    // 'name_column'=>'value'
+    protected $column = [];
+
 
     /**
      * Get the table cells to be displayed.
@@ -33,20 +36,22 @@ class JobTitleListLayout extends Table
             TD::make('supervisor', 'supervisor'),
             TD::make('created_at', 'created_at'),
             TD::make('updated_at', 'updated_at'),
-            TD::make('action')->render(function(JobTitle $jobTitle) {
-                return [
-                    ModalToggle::make('')
+            TD::make('')->width(20)->render(function(JobTitle $jobTitle) {
+                return ModalToggle::make('')
                         ->icon('pencil')  // Sets the icon of the toggle button to a pencil (edit icon)
                         ->modal('editJobTitle')  // Sets the modal identifier as 'editJobTitle'
                         ->method('update')  // Specifies that the method to be called is 'update'
                         ->modalTitle('Редактировать профессию')  // Sets the modal title to 'Редактировать профессию' (Edit job title)
                         ->asyncParameters([
                             'jobTitle' => $jobTitle->id  // Passes async parameters, including the job title ID
-                        ]),
-                    Button::make('')
-                        ->icon('pencil')  // Sets the icon of the button to a pencil (edit icon)
-                        ->method('delete')  // Specifies that the button triggers a 'delete' action
-                ];
+                        ]);
+            }),
+            TD::make('')->width(20)->render(function(JobTitle $jobTitle) {
+                return Button::make('')
+                    ->icon('trash')  // Sets the icon of the button to a trash icon (delete)
+                    ->confirm('Are you sure you want to delete this job title?')  // Confirmation message for delete action
+                    ->method('delete')  // Specifies that the button triggers a 'delete' action
+                    ->parameters(['id' => $jobTitle->id]);  // Passes parameters, including the job title ID
             })
         ];
     }

@@ -13,6 +13,7 @@ use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Support\Facades\Toast;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Fields\Input;
+use Illuminate\Http\Request;
 
 class JobTitleController extends Screen
 {
@@ -56,9 +57,9 @@ class JobTitleController extends Screen
         return [
             ModalToggle::make('Добавить')
                 ->modalTitle("Добавление профессии")
+                ->icon('plus-alt')
                 ->modal('saveJobTitle')
                 ->method('create')
-                ->icon('pencil')
         ];
     }
 
@@ -88,12 +89,22 @@ class JobTitleController extends Screen
     }
 
     public function create(JobTitleRequest $request) :void {
-        JobTitle::create($request->validated());
+        JobTitle::create($request->validated()['job_title']);
         Toast::info('JobTitle create');
     }
     public function update(JobTitleRequest $request) :void {
-        Toast::info('JobTitle create');
-        dd($request->validated());
+        $validatedData = $request->validated()['job_title'];
+        $jobTitle = JobTitle::find($validatedData['id']);
+        $jobTitle->update([
+            'name' => $validatedData['name'],
+            'supervisor' => $validatedData['supervisor'],
+        ]);
     }
 
+    public function delete(Request $request) : void {
+        Toast::info('JobTitle delete');
+        $jobTitle = JobTitle::findOrFail($request->id);
+        $jobTitle->delete();
+        Toast::info('JobTitle deleted');
+    }
 }
