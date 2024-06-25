@@ -18,6 +18,7 @@ use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use App\Orchid\Screens\Employees\JobTitleController;
+use App\Orchid\Screens\Employees;
 use App\Orchid\Screens\Employees\EmployeesController;
 
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::screen('/main', PlatformScreen::class)
 
 Route::screen('employees/job', JobTitleController::class)->name('job.title');
 Route::screen('employees', EmployeesController::class)->name('job.employees');
+Route::screen('employees/department', Employees\DepartmentController::class)->name('job.department');
 
 
 

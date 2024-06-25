@@ -20,10 +20,6 @@ return new class extends Migration
             $table->enum('employment_under', ['1', '2'])->nullable();
             $table->string('currency', 255)->default('RUB');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('job_title_id')->references('id')->on('job_titles')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

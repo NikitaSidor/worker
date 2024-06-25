@@ -54,7 +54,8 @@ class EmployeesController extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make('JobTitle')->href('employees/job'),
+            Link::make('JobTitle')->route('job.title'),
+            Link::make('Department')->route('job.department'),
 
             ModalToggle::make('Добавить')
                 ->modalTitle("Добавление профессии")

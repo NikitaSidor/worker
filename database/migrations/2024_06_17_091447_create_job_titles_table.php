@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('supervisor')->nullable();
-            $table->foreign('supervisor')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }
