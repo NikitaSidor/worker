@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\Employees;
 
+use App\Http\Requests\Employees\DepartmentRequest;
 use App\Http\Requests\Employees\JobTitleRequest;
 use App\Models\Department;
 use App\Models\JobTitle;
@@ -87,11 +88,13 @@ class DepartmentController extends Screen
         ];
     }
 
-    public function create(JobTitleRequest $request) :void {
+    public function create(DepartmentRequest $request) :void {
+        dd($request->validated());
         JobTitle::create($request->validated()['department']);
         Toast::info('JobTitle create');
     }
-    public function update(JobTitleRequest $request) :void {
+    public function update(Request $request) :void {
+        dd($request);
         $validatedData = $request->validated()['department'];
         $jobTitle = JobTitle::find($validatedData['id']);
         $jobTitle->update([

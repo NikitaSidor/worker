@@ -38,7 +38,7 @@ class CreateOrUpdateDepartment extends Rows
                 ->empty('No select'),
             Select::make('department.manager_id')
                 ->title('Manager id')
-                ->fromModel(Employees::class, 'name')
+                ->fromModel(Employees::class, 'user_id')
                 ->empty('No select')
         ];
     }
